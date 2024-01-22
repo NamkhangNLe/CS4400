@@ -87,6 +87,12 @@ create table works_on (
 -- PUT ALL PROPOSED QUERY SOLUTIONS BELOW THIS LINE
 -- -------------------------------------------------
 
+create or replace view practiceQuery0 as 
+select bdate, address from employee where fname like 'John' and lname like 'Smith';
+
+create or replace view practiceQuery9 as 
+select ssn from employee;
+
 
 
 -- -------------------------------------------------
