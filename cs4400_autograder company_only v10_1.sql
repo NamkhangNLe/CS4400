@@ -102,6 +102,15 @@ select fname, lname, address from employee where salary > 30000;
 create or replace view practiceQuery66 as 
 select fname, lname, address, bdate from employee where bdate > '1964-01-01' and bdate < '1970-08-10';
 
+create or replace view practiceQuery71 as
+select fname, lname, address from employee where address like '%Houston%';
+
+create or replace view practiceQuery75 as
+select fname, lname, address from employee where lname not like '%aya' and lname like '%aya%';
+
+-- create or replace view practiceQuery85 as
+-- select count(fname) from employee where superssn like 333445555
+
 -- -------------------------------------------------
 -- PUT ALL PROPOSED QUERY SOLUTIONS ABOVE THIS LINE
 -- -------------------------------------------------
