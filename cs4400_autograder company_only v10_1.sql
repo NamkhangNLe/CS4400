@@ -22,7 +22,7 @@ use company;
 -- table structures
 -- -----------------------------------------------
 
-create table employee (
+create table if not exists employee (
   fname char(10) not null,
   lname char(20) not null,
   ssn decimal(9, 0) not null,
@@ -87,29 +87,42 @@ create table works_on (
 -- PUT ALL PROPOSED QUERY SOLUTIONS BELOW THIS LINE
 -- -------------------------------------------------
 
-create or replace view practiceQuery0 as 
-select bdate, address from employee where fname like 'John' and lname like 'Smith';
+-- practiceQuery104: Retrieve the first name, last name and address for each employee that has a dependent daughter.
+create or replace view practiceQuery104 as
+select fname, lname, address from employee where ssn in (select essn from dependent where relationship = 'Daughter');
 
-create or replace view practiceQuery9 as 
-select ssn from employee;
+-- practiceQuery101: Retrieve the total number of employees whose salaries exceed $25,000 in all of the departments except Headquarters.
+create or replace view practiceQuery101 as
+select dno, count(*) as num_employees from employee where salary > 25000 and dno != 1 group by dno;
 
-create or replace view practiceQuery50 as 
-select fname, lname, address from employee;
+-- practiceQuery125: Retrieve the name and birthdate of all dependents, along with the first and last name of their sponsor (employee).
+-- Include the names of all employees in your response, to include the first and last names of employees who don't have any dependents.
+create or replace view practiceQuery125 as
+select d.dependent_name, d.bdate, e.fname, e.lname from dependent d right join employee e on d.essn = e.ssn;
 
-create or replace view practiceQuery62 as 
-select fname, lname, address from employee where salary > 30000;
+-- practiceQuery129: Find the first and last names and birthdates of the employees (supervisors included) who are old as (or older than) one or more of the department managers.
+--  Include the first and last names and birthdates of the managers as well.
+create or replace view practiceQuery129 as select e.fname, e.lname, e.bdate from employee e where e.bdate <= ANY (select bdate from employee where ssn in (select mgrssn from department));
 
-create or replace view practiceQuery66 as 
-select fname, lname, address, bdate from employee where bdate > '1964-01-01' and bdate < '1970-08-10';
+-- practiceQuery1: Retrieve the first name, last name and address of all employees who work for the 'Research' department.
+create or replace view practiceQuery1 as
+select fname, lname, address from employee where dno = 5;
 
-create or replace view practiceQuery71 as
-select fname, lname, address from employee where address like '%Houston%';
+-- practiceQuery2: For every project located in 'Stafford', list the project number, the controlling department number, and the department manager's last name, address, and birth date.
+create or replace view practiceQuery2 as
+select pnumber, dnum, lname, address, bdate from project join department on project.dnum = department.dnumber join employee on department.mgrssn = employee.ssn where plocation = 'Stafford';
 
-create or replace view practiceQuery75 as
-select fname, lname, address from employee where lname not like '%aya' and lname like '%aya%';
+-- practiceQuery8: For each employee, retrieve the employee's first and last name and the first and last name of his or her immediate supervisor.
+create or replace view practiceQuery8 as
+select e.fname as A_fname, e.lname A_lname, s.fname as B_fname, s.lname as B_lname from employee e left join employee s on e.superssn = s.ssn;
 
--- create or replace view practiceQuery85 as
--- select count(fname) from employee where superssn like 333445555
+-- practiceQuery10: Select all possible combinations of the employee's Social Security Numbers and department names.
+create or replace view practiceQuery10 as
+select ssn, dname from employee, department
+
+-- Retrieve all of the attributes for each employee and the department for which he or she works.
+create or replace view practiceQuery11 as
+select * from employee join department on employee.dno = department.dnumber;
 
 -- -------------------------------------------------
 -- PUT ALL PROPOSED QUERY SOLUTIONS ABOVE THIS LINE

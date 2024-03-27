@@ -1,0 +1,11 @@
+Loops: Used to execute one or more statements repeatedly until a condition is met
+Repeat
+	statement_list
+UNTIL search_condition
+END REPEAT
+
+DECLARE counter INT DEFAULT 0;
+WHILE counter <+ day DO
+	statement_list
+	SET counter = counter + 1;
+END WHILE;
