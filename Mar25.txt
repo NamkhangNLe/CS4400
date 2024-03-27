@@ -1,0 +1,67 @@
+1. Increased Latency
+2. Network Confgestion
+3. Higher Resources
+4. 
+5. 
+
+Solution: Make a single call, rest of the computation is handled in the database itself.
+Procedures -> Encapsulate SQL 
+
+General form: 
+CREATE PROCEDURE <procedure name> 
+(<parameters>)
+<local declarations> 
+<procedure body>;
+
+CREATE FUNCTION <functoin name> <function name> (<parameters>)
+RETURNS <return type>
+<local declarations>
+<function body>;
+
+Calling:
+CALL <procedure name> (<argument list>);
+SELECT <function name> (<argument list>);
+
+Example:
+create function combined_Name(lname char(10), fname char(20)) 
+	returns char(30) deterministic
+begin
+	return concat(fname, ' ', lname);
+end
+
+Delimiters:
+something about compound statements
+
+Stored Procedure:
+Called using the CALL Statement
+Parameters can be passed to it
+Can return zero or more values through output parameters
+Does not return a value directly
+
+Parameter Modes
+IN(DEFAULT): This mode is used to pass values into the stored procedure. Parameters defined as IN can be referenced
+
+Deterministic: 
+If function returns the same output for the same input values.
+Optimizes indexing and caching
+
+Declare:
+Used to declare variables
+DECLARE variable_name dat_type [DEFAULT initial_value]
+
+Example:
+Write a stored procedure called insert_if_ok that inserts a record into the works_on table of the company database only if the hours are not more than 20.
+
+Test Cases:
+call insert_if_ok(999999999, 5, 10);
+call insert_if_ok(123456789, 5, 30);
+
+Code: 
+CREATE PROCEDURE insert_if_ok (in this_ess decimal(9,0), in this_pno INT, in this)hours FLOAT)
+BEGIN
+	if this_hours <= 20 then
+		INSERT INTO WORKS_ON VALUES(this_essn, this_pno, this_hours);
+	end if;
+END
+
+DELIMETER
