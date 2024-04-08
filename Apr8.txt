@@ -1,0 +1,16 @@
+Goal is to reach 3 Normal Form
+Primary goal of normalization is to make it easier to maintain a correct collection of data.
+
+Anomalies: 
+- Redundancy: 
+
+We are able to us functional dependencies to go from one to another.
+Trick is to decompose into smaller relations
+	Ensure keeping functional dependencies
+	Basically we are splitting up functional dependencies based on the ___ --> ??? where same __
+
+Test 3: Practice Company/Test Global Company Database
+- View
+- Stored Procedure
+- Functions
+
