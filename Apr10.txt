@@ -1,0 +1,4 @@
+Databse Files:
+Memory organized into blocks
+Ordered index is similar to that behind the index used in a textbook
+B-Trees
